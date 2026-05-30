@@ -27,13 +27,13 @@ const MATRIX_TOKENS = [
 ];
 
 const MATRIX_NODE_POSITIONS = [
-  { x: 7, y: 18 },
-  { x: 31, y: 18 },
-  { x: 67, y: 18 },
-  { x: 94, y: 18 },
-  { x: 17, y: 48 },
-  { x: 84, y: 48 },
-  { x: 50, y: 82 }
+  { x: 10, y: 18 },
+  { x: 29, y: 18 },
+  { x: 64, y: 18 },
+  { x: 90, y: 18 },
+  { x: 20, y: 50 },
+  { x: 76, y: 50 },
+  { x: 48, y: 88 }
 ];
 
 const MATRIX_LINKS = [
