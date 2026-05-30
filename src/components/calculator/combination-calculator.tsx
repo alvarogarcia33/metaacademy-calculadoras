@@ -33,6 +33,41 @@ const MATRIX_TOKENS = [
   "3217399011"
 ];
 
+const MATRIX_NODE_POSITIONS = [
+  { x: 7, y: 22 },
+  { x: 20, y: 22 },
+  { x: 30, y: 22 },
+  { x: 47, y: 22 },
+  { x: 56, y: 22 },
+  { x: 73, y: 22 },
+  { x: 82, y: 22 },
+  { x: 93, y: 22 },
+  { x: 7, y: 45 },
+  { x: 34, y: 45 },
+  { x: 66, y: 45 },
+  { x: 93, y: 45 },
+  { x: 14, y: 72 },
+  { x: 50, y: 86 }
+];
+
+const MATRIX_LINKS = [
+  [0, 8],
+  [8, 12],
+  [12, 9],
+  [9, 2],
+  [8, 1],
+  [9, 3],
+  [3, 4],
+  [4, 10],
+  [10, 5],
+  [10, 11],
+  [11, 7],
+  [11, 13],
+  [13, 12],
+  [5, 6],
+  [6, 11]
+];
+
 export const SEVEN_PT_TABLE_DATA: CombinationRow[] = [
   { combination: "1X1", primaryOld: 0.05, primaryNew: 0.05, reexOld: 0, reexNew: 0, hmapOld: 0, hmapNew: 0 },
   { combination: "2X2", primaryOld: 0.075, primaryNew: 0.075, reexOld: 0, reexNew: 0, hmapOld: 0, hmapNew: 0 },
@@ -221,11 +256,28 @@ export function CombinationCalculator({
             <h2>Faltante a proxima combinacion importante</h2>
           </div>
         </div>
-        <div className="tokenMatrixGrid">
+        <div className="tokenMatrixCanvasWrap">
+          <div className="tokenMatrixMap">
+            <svg className="tokenMatrixLines" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+              {MATRIX_LINKS.map(([from, to]) => (
+                <line
+                  key={`${from}-${to}`}
+                  x1={MATRIX_NODE_POSITIONS[from].x}
+                  x2={MATRIX_NODE_POSITIONS[to].x}
+                  y1={MATRIX_NODE_POSITIONS[from].y}
+                  y2={MATRIX_NODE_POSITIONS[to].y}
+                />
+              ))}
+            </svg>
           {MATRIX_TOKENS.map((token) => {
             const values = matrixValues[token] ?? { left: "", right: "" };
+            const position = MATRIX_NODE_POSITIONS[MATRIX_TOKENS.indexOf(token)];
             return (
-              <article className="tokenNode" key={token}>
+              <article
+                className="tokenNode"
+                key={token}
+                style={{ left: `${position.x}%`, top: `${position.y}%` }}
+              >
                 <div className="matrixField matrixFieldLeft">
                   <span>{missingToNextTarget(values.left, importantTargets)}</span>
                   <input
@@ -257,6 +309,7 @@ export function CombinationCalculator({
               </article>
             );
           })}
+          </div>
         </div>
       </section>
 
