@@ -172,6 +172,12 @@ export function CombinationCalculator({
     }));
   };
 
+  const clearAll = () => {
+    setCounts(emptyCounts);
+    setInvestedAmount("");
+    setMatrixValues({});
+  };
+
   return (
     <div className="calculatorShell">
       <section className="financePanel" aria-label="Resumen financiero en euros">
@@ -256,9 +262,9 @@ export function CombinationCalculator({
               <p className="eyebrow">{label}</p>
               <h1>Calculadora de combinaciones</h1>
             </div>
-            <button className="iconTextButton" type="button" onClick={() => setCounts(emptyCounts)}>
+            <button className="iconTextButton" type="button" onClick={clearAll}>
               <RotateCcw size={18} />
-              Reiniciar
+              Limpiar todo
             </button>
           </div>
 
