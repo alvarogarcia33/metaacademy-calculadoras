@@ -17,55 +17,32 @@ type Counts = Record<string, { old: number; new: number }>;
 type MatrixValues = Record<string, { left: string; right: string }>;
 
 const MATRIX_TOKENS = [
-  "3217399016",
-  "3217399017",
-  "5794505680",
-  "1848697870",
-  "1651647331",
-  "7185609330",
-  "2400216681",
-  "5794505681",
-  "3217399013",
-  "3217399014",
-  "2332723340",
-  "3217399012",
-  "3217399015",
-  "3217399011"
+  { id: "2400216682", tone: "blue" },
+  { id: "2400216683", tone: "blue" },
+  { id: "5794505683", tone: "gold" },
+  { id: "5794505682", tone: "gold" },
+  { id: "2400216681", tone: "blue" },
+  { id: "5794505681", tone: "gold" },
+  { id: "2332723340", tone: "green" }
 ];
 
 const MATRIX_NODE_POSITIONS = [
-  { x: 7, y: 22 },
-  { x: 20, y: 22 },
-  { x: 30, y: 22 },
-  { x: 47, y: 22 },
-  { x: 57.5, y: 22 },
-  { x: 73, y: 22 },
-  { x: 83.5, y: 22 },
-  { x: 94, y: 22 },
-  { x: 7, y: 45 },
-  { x: 34, y: 45 },
-  { x: 66, y: 45 },
-  { x: 93, y: 45 },
-  { x: 14, y: 72 },
-  { x: 50, y: 86 }
+  { x: 7, y: 18 },
+  { x: 31, y: 18 },
+  { x: 67, y: 18 },
+  { x: 94, y: 18 },
+  { x: 17, y: 48 },
+  { x: 84, y: 48 },
+  { x: 50, y: 82 }
 ];
 
 const MATRIX_LINKS = [
-  [0, 8],
-  [8, 12],
-  [12, 9],
-  [9, 2],
-  [8, 1],
-  [9, 3],
-  [3, 4],
-  [4, 10],
-  [10, 5],
-  [10, 11],
-  [11, 7],
-  [11, 13],
-  [13, 12],
-  [5, 6],
-  [6, 11]
+  [0, 4],
+  [4, 1],
+  [4, 6],
+  [2, 6],
+  [6, 5],
+  [5, 3]
 ];
 
 export const SEVEN_PT_TABLE_DATA: CombinationRow[] = [
@@ -269,22 +246,22 @@ export function CombinationCalculator({
                 />
               ))}
             </svg>
-          {MATRIX_TOKENS.map((token) => {
-            const values = matrixValues[token] ?? { left: "", right: "" };
-            const position = MATRIX_NODE_POSITIONS[MATRIX_TOKENS.indexOf(token)];
+          {MATRIX_TOKENS.map((token, index) => {
+            const values = matrixValues[token.id] ?? { left: "", right: "" };
+            const position = MATRIX_NODE_POSITIONS[index];
             return (
               <article
-                className="tokenNode"
-                key={token}
+                className={`tokenNode tokenNode-${token.tone}`}
+                key={token.id}
                 style={{ left: `${position.x}%`, top: `${position.y}%` }}
               >
                 <div className="matrixField matrixFieldLeft">
                   <span>{missingToNextTarget(values.left, importantTargets)}</span>
                   <input
-                    aria-label={`${token} valor izquierdo`}
+                    aria-label={`${token.id} valor izquierdo`}
                     inputMode="numeric"
                     min={0}
-                    onChange={(event) => setMatrixValue(token, "left", event.target.value)}
+                    onChange={(event) => setMatrixValue(token.id, "left", event.target.value)}
                     placeholder="0"
                     type="number"
                     value={values.left}
@@ -295,17 +272,17 @@ export function CombinationCalculator({
                 </div>
                 <div className="matrixField matrixFieldRight">
                   <input
-                    aria-label={`${token} valor derecho`}
+                    aria-label={`${token.id} valor derecho`}
                     inputMode="numeric"
                     min={0}
-                    onChange={(event) => setMatrixValue(token, "right", event.target.value)}
+                    onChange={(event) => setMatrixValue(token.id, "right", event.target.value)}
                     placeholder="0"
                     type="number"
                     value={values.right}
                   />
                   <span>{missingToNextTarget(values.right, importantTargets)}</span>
                 </div>
-                <strong>{token}</strong>
+                <strong>{token.id}</strong>
               </article>
             );
           })}
