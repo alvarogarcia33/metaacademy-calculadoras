@@ -187,6 +187,55 @@ select {
     0 0 50px rgba(20, 184, 166, 0.24);
 }
 
+.imperiumLogoFrame {
+  position: relative;
+  width: min(300px, 64vw);
+  aspect-ratio: 1;
+  justify-self: center;
+  overflow: hidden;
+  border: 1px solid rgba(250, 204, 21, 0.28);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 0 28px rgba(250, 204, 21, 0.22),
+    0 0 74px rgba(250, 204, 21, 0.18),
+    0 24px 80px rgba(0, 0, 0, 0.45);
+  isolation: isolate;
+}
+
+.imperiumLogoFrame::before,
+.imperiumLogoFrame::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.imperiumLogoFrame::before {
+  inset: -45%;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 28% 24%, rgba(255, 245, 190, 0.72), transparent 8%),
+    conic-gradient(from 120deg, transparent 0deg, rgba(250, 204, 21, 0.72) 42deg, transparent 86deg);
+  mix-blend-mode: screen;
+  animation: neonSweep 5.5s linear infinite;
+}
+
+.imperiumLogoFrame::after {
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 244, 189, 0.48), transparent 54%);
+  transform: translateX(-110%);
+  animation: goldLogoGlint 4.2s ease-in-out infinite;
+}
+
+.imperiumLogoFrame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.12) contrast(1.05);
+}
+
 .calculatorChoiceGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -689,6 +738,22 @@ select {
   64%,
   100% {
     transform: translateX(72%) rotate(18deg);
+  }
+}
+
+@keyframes goldLogoGlint {
+  0%,
+  35% {
+    transform: translateX(-115%);
+    opacity: 0;
+  }
+  52% {
+    opacity: 1;
+  }
+  72%,
+  100% {
+    transform: translateX(115%);
+    opacity: 0;
   }
 }
 

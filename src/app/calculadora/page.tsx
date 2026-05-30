@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
 
@@ -8,6 +9,9 @@ export default function CalculatorHubPage() {
       <section className="calculatorLandingHero">
         <p className="eyebrow">Selecciona una tabla</p>
         <h1>Calculadoras</h1>
+        <div className="imperiumLogoFrame" aria-label="Imperium">
+          <Image alt="Imperium" height={300} priority src="/imperium-logo.jpeg" width={300} />
+        </div>
         <div className="calculatorChoiceGrid" aria-label="Calculadoras disponibles">
           <Link className="neonChoice neonChoiceSeven" href="/calculadora/7pt">
             <Sparkles size={28} />
