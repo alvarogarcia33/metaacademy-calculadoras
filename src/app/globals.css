@@ -21,11 +21,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at top left, rgba(20, 184, 166, 0.18), transparent 26%),
     radial-gradient(circle at top right, rgba(249, 115, 22, 0.14), transparent 24%),
@@ -549,6 +551,7 @@ select {
 
 .calculatorTableWrap {
   overflow-x: auto;
+  scrollbar-color: rgba(250, 204, 21, 0.72) rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(250, 204, 21, 0.18);
   border-radius: 8px;
   background:
@@ -579,6 +582,7 @@ select {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.35rem 0.2rem;
+  scrollbar-color: rgba(250, 204, 21, 0.72) rgba(255, 255, 255, 0.08);
 }
 
 .tokenMatrixMap {
@@ -772,6 +776,7 @@ select {
 
 .referenceTableWrap {
   overflow-x: auto;
+  scrollbar-color: rgba(250, 204, 21, 0.72) rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(250, 204, 21, 0.18);
   border-radius: 8px;
   background:
@@ -1016,6 +1021,22 @@ select {
     padding-top: 0.75rem;
   }
 
+  .backLink {
+    margin-bottom: 0.55rem;
+  }
+
+  .financeInputGroup,
+  .financeMetric,
+  .summaryTile {
+    min-height: 76px;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .financeMetric strong,
+  .summaryTile strong {
+    font-size: 1.35rem;
+  }
+
   .calculatorSummary {
     grid-template-columns: 1fr;
   }
@@ -1024,13 +1045,82 @@ select {
     grid-template-columns: 1fr;
   }
 
+  .calculatorTabs {
+    position: sticky;
+    top: 0.35rem;
+    z-index: 4;
+    width: 100%;
+    backdrop-filter: blur(18px);
+  }
+
+  .calculatorTabs button {
+    min-height: 36px;
+    font-size: 0.82rem;
+  }
+
   .calculatorToolbar {
     align-items: stretch;
     flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .calculatorToolbar h1,
+  .referenceHeader h2 {
+    font-size: 1.45rem;
+    line-height: 1.08;
   }
 
   .iconTextButton {
     width: 100%;
+  }
+
+  .calculatorTable {
+    min-width: 420px;
+  }
+
+  .calculatorTable th,
+  .calculatorTable td {
+    height: 42px;
+    padding: 0.32rem 0.42rem;
+  }
+
+  .stepper {
+    grid-template-columns: 28px 44px 28px;
+    gap: 0.22rem;
+  }
+
+  .stepper button,
+  .stepper input {
+    height: 28px;
+  }
+
+  .stepper input {
+    width: 44px;
+  }
+
+  .tokenMatrixPanel {
+    padding: 0.55rem;
+  }
+
+  .tokenMatrixCanvasWrap {
+    margin-inline: -0.15rem;
+    padding-bottom: 0.65rem;
+  }
+
+  .tokenMatrixMap {
+    width: 760px;
+    height: 340px;
+  }
+
+  .referenceTable {
+    min-width: 680px;
+  }
+
+  .referenceTable th,
+  .referenceTable td {
+    height: 34px;
+    padding: 0.3rem 0.45rem;
+    font-size: 0.78rem;
   }
 
   .calculatorChoiceGrid {
