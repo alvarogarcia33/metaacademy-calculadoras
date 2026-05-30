@@ -112,6 +112,7 @@ export function CombinationCalculator({
   const [counts, setCounts] = useState<Counts>(() => createEmptyCounts(data));
   const [investedAmount, setInvestedAmount] = useState("");
   const [matrixValues, setMatrixValues] = useState<MatrixValues>({});
+  const [activeTab, setActiveTab] = useState<"calculator" | "matrix" | "payments">("calculator");
   const importantTargets = useMemo(
     () => (label === "9PT" ? [6, 12, 18, 25, 50, 75, 100] : [6, 12, 18, 25, 50, 100]),
     [label]
@@ -226,166 +227,196 @@ export function CombinationCalculator({
         </div>
       </section>
 
-      <section className="tokenMatrixPanel" aria-label="Matriz de tokens">
-        <div className="referenceHeader">
-          <div>
-            <p className="eyebrow">Matriz</p>
-            <h2>Faltante a proxima combinacion importante</h2>
-          </div>
-        </div>
-        <div className="tokenMatrixCanvasWrap">
-          <div className="tokenMatrixMap">
-            <svg className="tokenMatrixLines" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
-              {MATRIX_LINKS.map(([from, to]) => (
-                <line
-                  key={`${from}-${to}`}
-                  x1={MATRIX_NODE_POSITIONS[from].x}
-                  x2={MATRIX_NODE_POSITIONS[to].x}
-                  y1={MATRIX_NODE_POSITIONS[from].y}
-                  y2={MATRIX_NODE_POSITIONS[to].y}
-                />
-              ))}
-            </svg>
-          {MATRIX_TOKENS.map((token, index) => {
-            const values = matrixValues[token.id] ?? { left: "", right: "" };
-            const position = MATRIX_NODE_POSITIONS[index];
-            return (
-              <article
-                className={`tokenNode tokenNode-${token.tone}`}
-                key={token.id}
-                style={{ left: `${position.x}%`, top: `${position.y}%` }}
-              >
-                <div className="matrixField matrixFieldLeft">
-                  <span>{missingToNextTarget(values.left, importantTargets)}</span>
-                  <input
-                    aria-label={`${token.id} valor izquierdo`}
-                    inputMode="numeric"
-                    min={0}
-                    onChange={(event) => setMatrixValue(token.id, "left", event.target.value)}
-                    placeholder="0"
-                    type="number"
-                    value={values.left}
-                  />
-                </div>
-                <div className="tokenCube" aria-hidden="true">
-                  <span />
-                </div>
-                <div className="matrixField matrixFieldRight">
-                  <input
-                    aria-label={`${token.id} valor derecho`}
-                    inputMode="numeric"
-                    min={0}
-                    onChange={(event) => setMatrixValue(token.id, "right", event.target.value)}
-                    placeholder="0"
-                    type="number"
-                    value={values.right}
-                  />
-                  <span>{missingToNextTarget(values.right, importantTargets)}</span>
-                </div>
-                <strong>{token.id}</strong>
-              </article>
-            );
-          })}
-          </div>
-        </div>
-      </section>
-
-      <div className="calculatorToolbar">
-        <div>
-          <p className="eyebrow">{label}</p>
-          <h1>Calculadora de combinaciones</h1>
-        </div>
-        <button className="iconTextButton" type="button" onClick={() => setCounts(emptyCounts)}>
-          <RotateCcw size={18} />
-          Reiniciar
+      <div className="calculatorTabs" role="tablist" aria-label="Secciones de la calculadora">
+        <button
+          aria-selected={activeTab === "calculator"}
+          onClick={() => setActiveTab("calculator")}
+          role="tab"
+          type="button"
+        >
+          Calculadora
+        </button>
+        <button aria-selected={activeTab === "matrix"} onClick={() => setActiveTab("matrix")} role="tab" type="button">
+          Matriz
+        </button>
+        <button
+          aria-selected={activeTab === "payments"}
+          onClick={() => setActiveTab("payments")}
+          role="tab"
+          type="button"
+        >
+          Pagos
         </button>
       </div>
 
-      <div className="calculatorTableWrap">
-        <table className="calculatorTable">
-          <thead>
-            <tr>
-              <th rowSpan={2}>Combinacion</th>
-              <th colSpan={2}>Cantidad</th>
-            </tr>
-            <tr>
-              <th>Vieja</th>
-              <th>Nueva</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row) => {
-              const rowCounts = counts[row.combination] ?? { old: 0, new: 0 };
-              return (
-                <tr key={row.combination}>
-                  <th scope="row">{row.combination}</th>
-                  <td>
-                    <Stepper
-                      label={`${row.combination} tabla vieja`}
-                      value={rowCounts.old}
-                      onDecrease={() => updateCount(row.combination, "old", -1)}
-                      onIncrease={() => updateCount(row.combination, "old", 1)}
-                      onChange={(value) => setManualCount(row.combination, "old", value)}
-                    />
-                  </td>
-                  <td>
-                    <Stepper
-                      label={`${row.combination} tabla nueva`}
-                      value={rowCounts.new}
-                      onDecrease={() => updateCount(row.combination, "new", -1)}
-                      onIncrease={() => updateCount(row.combination, "new", 1)}
-                      onChange={(value) => setManualCount(row.combination, "new", value)}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      {activeTab === "calculator" ? (
+        <div className="tabPanel" role="tabpanel">
+          <div className="calculatorToolbar">
+            <div>
+              <p className="eyebrow">{label}</p>
+              <h1>Calculadora de combinaciones</h1>
+            </div>
+            <button className="iconTextButton" type="button" onClick={() => setCounts(emptyCounts)}>
+              <RotateCcw size={18} />
+              Reiniciar
+            </button>
+          </div>
 
-      <section className="referencePanel" aria-label="Pagos por combinacion">
-        <div className="referenceHeader">
-          <div>
-            <p className="eyebrow">Referencia</p>
-            <h2>Pago por combinacion</h2>
+          <div className="calculatorTableWrap">
+            <table className="calculatorTable">
+              <thead>
+                <tr>
+                  <th rowSpan={2}>Combinacion</th>
+                  <th colSpan={2}>Cantidad</th>
+                </tr>
+                <tr>
+                  <th>Vieja</th>
+                  <th>Nueva</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((row) => {
+                  const rowCounts = counts[row.combination] ?? { old: 0, new: 0 };
+                  return (
+                    <tr key={row.combination}>
+                      <th scope="row">{row.combination}</th>
+                      <td>
+                        <Stepper
+                          label={`${row.combination} tabla vieja`}
+                          value={rowCounts.old}
+                          onDecrease={() => updateCount(row.combination, "old", -1)}
+                          onIncrease={() => updateCount(row.combination, "old", 1)}
+                          onChange={(value) => setManualCount(row.combination, "old", value)}
+                        />
+                      </td>
+                      <td>
+                        <Stepper
+                          label={`${row.combination} tabla nueva`}
+                          value={rowCounts.new}
+                          onDecrease={() => updateCount(row.combination, "new", -1)}
+                          onIncrease={() => updateCount(row.combination, "new", 1)}
+                          onChange={(value) => setManualCount(row.combination, "new", value)}
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
+      ) : null}
 
-        <div className="referenceTableWrap">
-          <table className="referenceTable">
-            <thead>
-              <tr>
-                <th rowSpan={2}>Combinacion</th>
-                <th colSpan={2}>{primaryLabel}</th>
-                <th colSpan={2}>REEX Coin</th>
-                <th colSpan={2}>HMAP Coin</th>
-              </tr>
-              <tr>
-                <th>Vieja</th>
-                <th>Nueva</th>
-                <th>Vieja</th>
-                <th>Nueva</th>
-                <th>Vieja</th>
-                <th>Nueva</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((row) => (
-                <tr key={`reference-${row.combination}`}>
-                  <th scope="row">{row.combination}</th>
-                  <td>{formatRate(row.primaryOld)}</td>
-                  <td>{formatRate(row.primaryNew)}</td>
-                  <td>{formatRate(row.reexOld)}</td>
-                  <td>{formatRate(row.reexNew)}</td>
-                  <td>{formatRate(row.hmapOld)}</td>
-                  <td>{formatRate(row.hmapNew)}</td>
+      {activeTab === "matrix" ? (
+        <section className="tokenMatrixPanel tabPanel" aria-label="Matriz de tokens" role="tabpanel">
+          <div className="referenceHeader">
+            <div>
+              <p className="eyebrow">Matriz</p>
+              <h2>Faltante a proxima combinacion importante</h2>
+            </div>
+          </div>
+          <div className="tokenMatrixCanvasWrap">
+            <div className="tokenMatrixMap">
+              <svg className="tokenMatrixLines" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+                {MATRIX_LINKS.map(([from, to]) => (
+                  <line
+                    key={`${from}-${to}`}
+                    x1={MATRIX_NODE_POSITIONS[from].x}
+                    x2={MATRIX_NODE_POSITIONS[to].x}
+                    y1={MATRIX_NODE_POSITIONS[from].y}
+                    y2={MATRIX_NODE_POSITIONS[to].y}
+                  />
+                ))}
+              </svg>
+              {MATRIX_TOKENS.map((token, index) => {
+                const values = matrixValues[token.id] ?? { left: "", right: "" };
+                const position = MATRIX_NODE_POSITIONS[index];
+                return (
+                  <article
+                    className={`tokenNode tokenNode-${token.tone}`}
+                    key={token.id}
+                    style={{ left: `${position.x}%`, top: `${position.y}%` }}
+                  >
+                    <div className="matrixField matrixFieldLeft">
+                      <span>{missingToNextTarget(values.left, importantTargets)}</span>
+                      <input
+                        aria-label={`${token.id} valor izquierdo`}
+                        inputMode="numeric"
+                        min={0}
+                        onChange={(event) => setMatrixValue(token.id, "left", event.target.value)}
+                        placeholder="0"
+                        type="number"
+                        value={values.left}
+                      />
+                    </div>
+                    <div className="tokenCube" aria-hidden="true">
+                      <span />
+                    </div>
+                    <div className="matrixField matrixFieldRight">
+                      <input
+                        aria-label={`${token.id} valor derecho`}
+                        inputMode="numeric"
+                        min={0}
+                        onChange={(event) => setMatrixValue(token.id, "right", event.target.value)}
+                        placeholder="0"
+                        type="number"
+                        value={values.right}
+                      />
+                      <span>{missingToNextTarget(values.right, importantTargets)}</span>
+                    </div>
+                    <strong>{token.id}</strong>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {activeTab === "payments" ? (
+        <section className="referencePanel tabPanel" aria-label="Pagos por combinacion" role="tabpanel">
+          <div className="referenceHeader">
+            <div>
+              <p className="eyebrow">Referencia</p>
+              <h2>Pago por combinacion</h2>
+            </div>
+          </div>
+
+          <div className="referenceTableWrap">
+            <table className="referenceTable">
+              <thead>
+                <tr>
+                  <th rowSpan={2}>Combinacion</th>
+                  <th colSpan={2}>{primaryLabel}</th>
+                  <th colSpan={2}>REEX Coin</th>
+                  <th colSpan={2}>HMAP Coin</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+                <tr>
+                  <th>Vieja</th>
+                  <th>Nueva</th>
+                  <th>Vieja</th>
+                  <th>Nueva</th>
+                  <th>Vieja</th>
+                  <th>Nueva</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((row) => (
+                  <tr key={`reference-${row.combination}`}>
+                    <th scope="row">{row.combination}</th>
+                    <td>{formatRate(row.primaryOld)}</td>
+                    <td>{formatRate(row.primaryNew)}</td>
+                    <td>{formatRate(row.reexOld)}</td>
+                    <td>{formatRate(row.reexNew)}</td>
+                    <td>{formatRate(row.hmapOld)}</td>
+                    <td>{formatRate(row.hmapNew)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

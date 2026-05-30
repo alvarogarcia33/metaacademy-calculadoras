@@ -437,6 +437,41 @@ select {
   gap: 0.75rem;
 }
 
+.calculatorTabs {
+  display: inline-grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  width: min(620px, 100%);
+  padding: 0.28rem;
+  border: 1px solid rgba(250, 204, 21, 0.18);
+  border-radius: 8px;
+  background: rgba(2, 12, 18, 0.72);
+}
+
+.calculatorTabs button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.calculatorTabs button[aria-selected="true"] {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 244, 189, 0.34), transparent 38%),
+    rgba(250, 204, 21, 0.16);
+  color: #fff4bd;
+  box-shadow:
+    0 0 18px rgba(250, 204, 21, 0.16),
+    inset 0 0 0 1px rgba(250, 204, 21, 0.2);
+}
+
+.tabPanel {
+  animation: tabFade 160ms ease-out;
+}
+
 .summaryTile {
   position: relative;
   overflow: hidden;
@@ -948,6 +983,17 @@ select {
   100% {
     transform: translateX(115%);
     opacity: 0;
+  }
+}
+
+@keyframes tabFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
