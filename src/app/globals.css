@@ -548,8 +548,11 @@ select {
 
 .tokenMatrixMap {
   position: relative;
-  min-width: 980px;
-  height: 430px;
+  width: 980px;
+  min-width: 760px;
+  max-width: 100%;
+  height: 380px;
+  margin: 0 auto;
   overflow: hidden;
   border-radius: 8px;
   background:
@@ -576,11 +579,11 @@ select {
 .tokenNode {
   position: absolute;
   display: grid;
-  grid-template-columns: 58px 34px 58px;
+  grid-template-columns: 54px 34px 54px;
   grid-template-rows: auto auto;
   align-items: center;
   gap: 0.18rem 0.26rem;
-  width: 162px;
+  width: 154px;
   min-height: 68px;
   padding: 0.2rem;
   border: 0;
