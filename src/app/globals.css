@@ -528,6 +528,130 @@ select {
   margin-top: 0.4rem;
 }
 
+.tokenMatrixPanel {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  border: 1px solid rgba(250, 204, 21, 0.18);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(250, 204, 21, 0.08), transparent 34%),
+    rgba(3, 13, 18, 0.72);
+  box-shadow: 0 0 34px rgba(250, 204, 21, 0.08);
+}
+
+.tokenMatrixGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  gap: 0.65rem;
+}
+
+.tokenNode {
+  display: grid;
+  grid-template-columns: 1fr 44px 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0.25rem 0.35rem;
+  min-height: 88px;
+  padding: 0.58rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(74, 222, 128, 0.08), transparent 44%),
+    rgba(2, 12, 18, 0.82);
+}
+
+.tokenNode > strong {
+  grid-column: 1 / -1;
+  color: #f5f7ef;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+.matrixField {
+  display: grid;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.matrixFieldLeft {
+  grid-template-columns: 24px minmax(0, 1fr);
+}
+
+.matrixFieldRight {
+  grid-template-columns: minmax(0, 1fr) 24px;
+}
+
+.matrixField span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: rgba(250, 204, 21, 0.12);
+  color: #ffe47a;
+  font-size: 0.76rem;
+  font-weight: 900;
+  box-shadow: 0 0 13px rgba(250, 204, 21, 0.12);
+}
+
+.matrixField input {
+  width: 100%;
+  height: 30px;
+  padding: 0 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
+  background: rgba(2, 12, 18, 0.92);
+  color: #fff9db;
+  font-weight: 900;
+  text-align: center;
+  outline: none;
+}
+
+.matrixField input:focus {
+  border-color: rgba(74, 222, 128, 0.58);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.12);
+}
+
+.tokenCube {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  justify-self: center;
+  border: 2px solid rgba(74, 222, 128, 0.82);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(105, 201, 87, 0.9), rgba(41, 96, 42, 0.78)),
+    #18371f;
+  box-shadow:
+    0 0 18px rgba(74, 222, 128, 0.22),
+    inset -9px -8px 0 rgba(0, 0, 0, 0.14);
+  transform: rotate(3deg);
+}
+
+.tokenCube::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  width: 0;
+  height: 0;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+  border-top: 14px solid #22c55e;
+  filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.75));
+}
+
+.tokenCube span {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(165, 231, 145, 0.52);
+  clip-path: polygon(50% 0, 95% 25%, 82% 82%, 50% 100%, 18% 82%, 5% 25%);
+}
+
 .referenceHeader {
   display: flex;
   align-items: end;

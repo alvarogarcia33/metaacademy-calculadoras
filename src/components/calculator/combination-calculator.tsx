@@ -14,6 +14,24 @@ type CombinationRow = {
 };
 
 type Counts = Record<string, { old: number; new: number }>;
+type MatrixValues = Record<string, { left: string; right: string }>;
+
+const MATRIX_TOKENS = [
+  "3217399016",
+  "3217399017",
+  "5794505680",
+  "1848697870",
+  "1651647331",
+  "7185609330",
+  "2400216681",
+  "5794505681",
+  "3217399013",
+  "3217399014",
+  "2332723340",
+  "3217399012",
+  "3217399015",
+  "3217399011"
+];
 
 export const SEVEN_PT_TABLE_DATA: CombinationRow[] = [
   { combination: "1X1", primaryOld: 0.05, primaryNew: 0.05, reexOld: 0, reexNew: 0, hmapOld: 0, hmapNew: 0 },
@@ -81,6 +99,11 @@ export function CombinationCalculator({
   const emptyCounts = useMemo(() => createEmptyCounts(data), [data]);
   const [counts, setCounts] = useState<Counts>(() => createEmptyCounts(data));
   const [investedAmount, setInvestedAmount] = useState("");
+  const [matrixValues, setMatrixValues] = useState<MatrixValues>({});
+  const importantTargets = useMemo(
+    () => (label === "9PT" ? [6, 12, 18, 25, 50, 75, 100] : [6, 12, 18, 25, 50, 100]),
+    [label]
+  );
 
   const totals = useMemo(() => {
     return data.reduce(
@@ -122,6 +145,16 @@ export function CombinationCalculator({
       [combination]: {
         ...(current[combination] ?? { old: 0, new: 0 }),
         [table]: Number.isFinite(parsed) ? parsed : 0
+      }
+    }));
+  };
+
+  const setMatrixValue = (token: string, side: "left" | "right", value: string) => {
+    setMatrixValues((current) => ({
+      ...current,
+      [token]: {
+        ...(current[token] ?? { left: "", right: "" }),
+        [side]: value
       }
     }));
   };
@@ -178,6 +211,52 @@ export function CombinationCalculator({
           <span>HMAP Coin</span>
           <strong>{formatAmount(totals.hmap)}</strong>
           <small>Total acumulado</small>
+        </div>
+      </section>
+
+      <section className="tokenMatrixPanel" aria-label="Matriz de tokens">
+        <div className="referenceHeader">
+          <div>
+            <p className="eyebrow">Matriz</p>
+            <h2>Faltante a proxima combinacion importante</h2>
+          </div>
+        </div>
+        <div className="tokenMatrixGrid">
+          {MATRIX_TOKENS.map((token) => {
+            const values = matrixValues[token] ?? { left: "", right: "" };
+            return (
+              <article className="tokenNode" key={token}>
+                <div className="matrixField matrixFieldLeft">
+                  <span>{missingToNextTarget(values.left, importantTargets)}</span>
+                  <input
+                    aria-label={`${token} valor izquierdo`}
+                    inputMode="numeric"
+                    min={0}
+                    onChange={(event) => setMatrixValue(token, "left", event.target.value)}
+                    placeholder="0"
+                    type="number"
+                    value={values.left}
+                  />
+                </div>
+                <div className="tokenCube" aria-hidden="true">
+                  <span />
+                </div>
+                <div className="matrixField matrixFieldRight">
+                  <input
+                    aria-label={`${token} valor derecho`}
+                    inputMode="numeric"
+                    min={0}
+                    onChange={(event) => setMatrixValue(token, "right", event.target.value)}
+                    placeholder="0"
+                    type="number"
+                    value={values.right}
+                  />
+                  <span>{missingToNextTarget(values.right, importantTargets)}</span>
+                </div>
+                <strong>{token}</strong>
+              </article>
+            );
+          })}
         </div>
       </section>
 
@@ -292,6 +371,13 @@ function formatEuros(value: number) {
     minimumFractionDigits: 2,
     style: "currency"
   }).format(value);
+}
+
+function missingToNextTarget(value: string, targets: number[]) {
+  const parsed = Number.parseInt(value || "0", 10);
+  const current = Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+  const nextTarget = targets.find((target) => current < target);
+  return nextTarget ? nextTarget - current : 0;
 }
 
 function Stepper({
