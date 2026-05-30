@@ -100,7 +100,7 @@ export function CombinationCalculator({
 
   const invested = Number.parseFloat(investedAmount.replace(",", ".")) || 0;
   const generatedEarnings = totals.reex * 25 + totals.hmap * 50;
-  const balance = invested - generatedEarnings;
+  const balance = generatedEarnings - invested;
 
   const updateCount = (combination: string, table: "old" | "new", amount: number) => {
     setCounts((current) => {
@@ -154,7 +154,7 @@ export function CombinationCalculator({
         <div className="financeMetric">
           <span>Saldo</span>
           <strong className={balance >= 0 ? "positiveNumber" : "negativeNumber"}>{formatEuros(balance)}</strong>
-          <small>Inversion - ganancias</small>
+          <small>Ganancias - inversion</small>
         </div>
       </section>
 
