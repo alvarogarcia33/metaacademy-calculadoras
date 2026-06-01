@@ -244,6 +244,12 @@ select {
   margin: 0.2rem 0 0.75rem;
 }
 
+.sevenPtEmblemPanel {
+  display: grid;
+  place-items: center;
+  margin: 0.2rem 0 0.75rem;
+}
+
 .ninePtEmblemFrame {
   position: relative;
   width: min(230px, 58vw);
@@ -260,14 +266,33 @@ select {
   isolation: isolate;
 }
 
+.sevenPtEmblemFrame {
+  position: relative;
+  width: min(250px, 62vw);
+  aspect-ratio: 30 / 43;
+  overflow: hidden;
+  border: 1px solid rgba(250, 204, 21, 0.24);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(250, 204, 21, 0.1), transparent 38%),
+    rgba(3, 12, 18, 0.64);
+  box-shadow:
+    0 0 28px rgba(250, 204, 21, 0.16),
+    0 20px 60px rgba(0, 0, 0, 0.36);
+  isolation: isolate;
+}
+
 .ninePtEmblemFrame::before,
-.ninePtEmblemFrame::after {
+.ninePtEmblemFrame::after,
+.sevenPtEmblemFrame::before,
+.sevenPtEmblemFrame::after {
   content: "";
   position: absolute;
   pointer-events: none;
 }
 
-.ninePtEmblemFrame::before {
+.ninePtEmblemFrame::before,
+.sevenPtEmblemFrame::before {
   inset: -45%;
   z-index: 1;
   background:
@@ -277,7 +302,8 @@ select {
   animation: neonSweep 5.5s linear infinite;
 }
 
-.ninePtEmblemFrame::after {
+.ninePtEmblemFrame::after,
+.sevenPtEmblemFrame::after {
   inset: 0;
   z-index: 2;
   background: linear-gradient(105deg, transparent 32%, rgba(255, 244, 189, 0.4), transparent 54%);
@@ -285,7 +311,8 @@ select {
   animation: goldLogoGlint 4.2s ease-in-out infinite;
 }
 
-.ninePtEmblem {
+.ninePtEmblem,
+.sevenPtEmblem {
   position: relative;
   z-index: 0;
   display: block;
@@ -294,13 +321,15 @@ select {
   padding: 0.35rem;
 }
 
-.ninePtHex polygon {
+.ninePtHex polygon,
+.sevenPtHex polygon {
   fill: rgba(8, 17, 23, 0.9);
   stroke-width: 7;
   stroke-linejoin: round;
 }
 
-.ninePtHex text {
+.ninePtHex text,
+.sevenPtHex text {
   fill: rgba(244, 247, 248, 0.42);
   font-family: var(--font-display), sans-serif;
   font-size: 22px;
@@ -314,7 +343,17 @@ select {
   filter: drop-shadow(0 0 9px rgba(33, 245, 139, 0.72));
 }
 
+.sevenPtHex-green polygon {
+  stroke: #53e248;
+  filter: drop-shadow(0 0 9px rgba(83, 226, 72, 0.72));
+}
+
 .ninePtHex-cyan polygon {
+  stroke: #58f3ff;
+  filter: drop-shadow(0 0 9px rgba(88, 243, 255, 0.72));
+}
+
+.sevenPtHex-cyan polygon {
   stroke: #58f3ff;
   filter: drop-shadow(0 0 9px rgba(88, 243, 255, 0.72));
 }
@@ -329,7 +368,17 @@ select {
   filter: drop-shadow(0 0 9px rgba(255, 75, 75, 0.68));
 }
 
+.sevenPtHex-red polygon {
+  stroke: #ff4b4b;
+  filter: drop-shadow(0 0 9px rgba(255, 75, 75, 0.68));
+}
+
 .ninePtHex-gold polygon {
+  stroke: #ffd84d;
+  filter: drop-shadow(0 0 9px rgba(255, 216, 77, 0.72));
+}
+
+.sevenPtHex-gold polygon {
   stroke: #ffd84d;
   filter: drop-shadow(0 0 9px rgba(255, 216, 77, 0.72));
 }
@@ -344,12 +393,27 @@ select {
   filter: drop-shadow(0 0 9px rgba(83, 104, 255, 0.72));
 }
 
+.sevenPtHex-blue polygon {
+  stroke: #5368ff;
+  filter: drop-shadow(0 0 9px rgba(83, 104, 255, 0.72));
+}
+
 .ninePtHex-purple polygon {
   stroke: #cf49ff;
   filter: drop-shadow(0 0 9px rgba(207, 73, 255, 0.72));
 }
 
+.sevenPtHex-purple polygon {
+  stroke: #cf49ff;
+  filter: drop-shadow(0 0 9px rgba(207, 73, 255, 0.72));
+}
+
 .ninePtHex-white polygon {
+  stroke: #e7e7df;
+  filter: drop-shadow(0 0 9px rgba(231, 231, 223, 0.65));
+}
+
+.sevenPtHex-white polygon {
   stroke: #e7e7df;
   filter: drop-shadow(0 0 9px rgba(231, 231, 223, 0.65));
 }
