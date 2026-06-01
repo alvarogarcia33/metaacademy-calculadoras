@@ -238,6 +238,122 @@ select {
   filter: saturate(1.12) contrast(1.05);
 }
 
+.ninePtEmblemPanel {
+  display: grid;
+  place-items: center;
+  margin: 0.2rem 0 0.75rem;
+}
+
+.ninePtEmblemFrame {
+  position: relative;
+  width: min(230px, 58vw);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid rgba(250, 204, 21, 0.24);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(20, 184, 166, 0.12), transparent 36%),
+    rgba(3, 12, 18, 0.64);
+  box-shadow:
+    0 0 28px rgba(250, 204, 21, 0.16),
+    0 20px 60px rgba(0, 0, 0, 0.36);
+  isolation: isolate;
+}
+
+.ninePtEmblemFrame::before,
+.ninePtEmblemFrame::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.ninePtEmblemFrame::before {
+  inset: -45%;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 245, 190, 0.62), transparent 8%),
+    conic-gradient(from 120deg, transparent 0deg, rgba(250, 204, 21, 0.58) 42deg, transparent 86deg);
+  mix-blend-mode: screen;
+  animation: neonSweep 5.5s linear infinite;
+}
+
+.ninePtEmblemFrame::after {
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 244, 189, 0.4), transparent 54%);
+  transform: translateX(-110%);
+  animation: goldLogoGlint 4.2s ease-in-out infinite;
+}
+
+.ninePtEmblem {
+  position: relative;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.35rem;
+}
+
+.ninePtHex polygon {
+  fill: rgba(8, 17, 23, 0.9);
+  stroke-width: 7;
+  stroke-linejoin: round;
+}
+
+.ninePtHex text {
+  fill: rgba(244, 247, 248, 0.42);
+  font-family: var(--font-display), sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.ninePtHex-green polygon {
+  stroke: #21f58b;
+  filter: drop-shadow(0 0 9px rgba(33, 245, 139, 0.72));
+}
+
+.ninePtHex-cyan polygon {
+  stroke: #58f3ff;
+  filter: drop-shadow(0 0 9px rgba(88, 243, 255, 0.72));
+}
+
+.ninePtHex-pink polygon {
+  stroke: #ff0f73;
+  filter: drop-shadow(0 0 9px rgba(255, 15, 115, 0.72));
+}
+
+.ninePtHex-red polygon {
+  stroke: #ff4b4b;
+  filter: drop-shadow(0 0 9px rgba(255, 75, 75, 0.68));
+}
+
+.ninePtHex-gold polygon {
+  stroke: #ffd84d;
+  filter: drop-shadow(0 0 9px rgba(255, 216, 77, 0.72));
+}
+
+.ninePtHex-lime polygon {
+  stroke: #64f558;
+  filter: drop-shadow(0 0 9px rgba(100, 245, 88, 0.72));
+}
+
+.ninePtHex-blue polygon {
+  stroke: #5368ff;
+  filter: drop-shadow(0 0 9px rgba(83, 104, 255, 0.72));
+}
+
+.ninePtHex-purple polygon {
+  stroke: #cf49ff;
+  filter: drop-shadow(0 0 9px rgba(207, 73, 255, 0.72));
+}
+
+.ninePtHex-white polygon {
+  stroke: #e7e7df;
+  filter: drop-shadow(0 0 9px rgba(231, 231, 223, 0.65));
+}
+
 .calculatorChoiceGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
