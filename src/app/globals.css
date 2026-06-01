@@ -268,16 +268,16 @@ select {
 
 .sevenPtEmblemFrame {
   position: relative;
-  width: min(250px, 62vw);
-  aspect-ratio: 3 / 4;
+  width: min(300px, 72vw);
+  aspect-ratio: 30 / 41;
   overflow: hidden;
-  border: 1px solid rgba(250, 204, 21, 0.24);
-  border-radius: 18px;
+  border: 0;
+  border-radius: 10px;
   background:
-    radial-gradient(circle at 50% 48%, rgba(250, 204, 21, 0.1), transparent 38%),
-    rgba(3, 12, 18, 0.64);
+    radial-gradient(circle at 50% 46%, rgba(255, 255, 255, 0.12), transparent 42%),
+    #10100f;
   box-shadow:
-    0 0 28px rgba(250, 204, 21, 0.16),
+    0 0 34px rgba(250, 204, 21, 0.12),
     0 20px 60px rgba(0, 0, 0, 0.36);
   isolation: isolate;
 }
@@ -324,15 +324,15 @@ select {
 .ninePtHex polygon,
 .sevenPtHex polygon {
   fill: rgba(8, 17, 23, 0.9);
-  stroke-width: 7;
+  stroke-width: 6;
   stroke-linejoin: round;
 }
 
 .ninePtHex text,
 .sevenPtHex text {
-  fill: rgba(244, 247, 248, 0.42);
+  fill: rgba(244, 247, 248, 0.12);
   font-family: var(--font-display), sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
   text-anchor: middle;
   dominant-baseline: central;
