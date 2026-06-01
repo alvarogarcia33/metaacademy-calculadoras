@@ -25,6 +25,14 @@ export default function Calculator9PtPage() {
       </Link>
       <section className="ninePtEmblemPanel" aria-label="Emblema 9PT">
         <div className="ninePtEmblemFrame">
+          <div className="orbitTextRing" aria-hidden="true">
+            <span>9PT</span>
+            <span>9PT</span>
+            <span>9PT</span>
+            <span>9PT</span>
+            <span>9PT</span>
+            <span>9PT</span>
+          </div>
           <svg className="ninePtEmblem" viewBox="0 0 300 400" role="img" aria-label="9PT">
             {hexagons.map((hex) => (
               <g className={`ninePtHex ninePtHex-${hex.color}`} key={hex.label}>

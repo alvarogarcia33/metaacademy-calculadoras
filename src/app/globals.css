@@ -314,11 +314,60 @@ select {
 .ninePtEmblem,
 .sevenPtEmblem {
   position: relative;
-  z-index: 0;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
   padding: 0.35rem;
+}
+
+.orbitTextRing {
+  position: absolute;
+  inset: 6%;
+  z-index: 3;
+  border-radius: 50%;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  animation: orbitSpin 7s linear infinite;
+}
+
+.orbitTextRing span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #ffe47a;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 8px rgba(250, 204, 21, 0.9),
+    0 0 18px rgba(250, 204, 21, 0.45);
+  transform-origin: 0 0;
+}
+
+.orbitTextRing span:nth-child(1) {
+  transform: rotate(0deg) translateX(48%) rotate(0deg);
+}
+
+.orbitTextRing span:nth-child(2) {
+  transform: rotate(60deg) translateX(48%) rotate(-60deg);
+}
+
+.orbitTextRing span:nth-child(3) {
+  transform: rotate(120deg) translateX(48%) rotate(-120deg);
+}
+
+.orbitTextRing span:nth-child(4) {
+  transform: rotate(180deg) translateX(48%) rotate(-180deg);
+}
+
+.orbitTextRing span:nth-child(5) {
+  transform: rotate(240deg) translateX(48%) rotate(-240deg);
+}
+
+.orbitTextRing span:nth-child(6) {
+  transform: rotate(300deg) translateX(48%) rotate(-300deg);
 }
 
 .ninePtHex polygon,
@@ -1179,6 +1228,15 @@ select {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes orbitSpin {
+  from {
+    transform: rotateX(64deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(64deg) rotateZ(360deg);
   }
 }
 
