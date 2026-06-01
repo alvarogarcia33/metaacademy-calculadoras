@@ -23,6 +23,12 @@ export default function Calculator7PtPage() {
       </Link>
       <section className="sevenPtEmblemPanel" aria-label="Emblema 7PT">
         <div className="sevenPtEmblemFrame">
+          <div className="orbitTextRing sevenPtOrbitTextRing" aria-hidden="true">
+            <span>7PT</span>
+            <span>7PT</span>
+            <span>7PT</span>
+            <span>7PT</span>
+          </div>
           <svg className="sevenPtEmblem" viewBox="0 0 300 410" role="img" aria-label="7PT">
             {hexagons.map((hex) => (
               <g className={`sevenPtHex sevenPtHex-${hex.color}`} key={hex.label}>

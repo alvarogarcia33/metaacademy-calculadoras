@@ -325,7 +325,7 @@ select {
 }
 
 .sevenPtEmblem {
-  z-index: 1;
+  z-index: 2;
 }
 
 .orbitTextRing {
@@ -379,6 +379,14 @@ select {
 
 .orbitTextRing span:nth-child(6) {
   animation-delay: -10.5s;
+}
+
+.sevenPtOrbitTextRing span {
+  color: #fff0a8;
+  text-shadow:
+    0 0 7px rgba(255, 250, 205, 0.95),
+    0 0 18px rgba(250, 204, 21, 0.88),
+    0 0 38px rgba(250, 204, 21, 0.56);
 }
 
 .ninePtHex polygon,
