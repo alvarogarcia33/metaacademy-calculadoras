@@ -269,12 +269,12 @@ select {
 .sevenPtEmblemFrame {
   position: relative;
   width: min(250px, 62vw);
-  aspect-ratio: 30 / 43;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   border: 1px solid rgba(250, 204, 21, 0.24);
   border-radius: 18px;
   background:
-    radial-gradient(circle at 50% 42%, rgba(250, 204, 21, 0.1), transparent 38%),
+    radial-gradient(circle at 50% 48%, rgba(250, 204, 21, 0.1), transparent 38%),
     rgba(3, 12, 18, 0.64);
   box-shadow:
     0 0 28px rgba(250, 204, 21, 0.16),
